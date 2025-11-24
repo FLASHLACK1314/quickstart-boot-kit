@@ -3,6 +3,7 @@ package io.github.flashlack1314.quickstart.vo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * 统一响应结果类 (Result Value Object)
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class ResultVO<T> {
 
     /**
