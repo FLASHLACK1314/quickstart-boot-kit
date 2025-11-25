@@ -7,6 +7,10 @@ import io.github.flashlack1314.quickstart.exception.SystemException;
 import io.github.flashlack1314.quickstart.vo.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +21,8 @@ import java.util.Map;
  *
  * @author flash
  */
+@ControllerAdvice
+@ResponseBody
 public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
@@ -27,6 +33,7 @@ public class GlobalExceptionHandler {
      * @param e 基础异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(BaseException.class)
     public ResultVO<Void> handleBaseException(BaseException e) {
         logger.error("基础异常: {}", e.getMessage(), e);
         return ResultVO.error(e.getCode(), e.getMessage());
@@ -38,6 +45,7 @@ public class GlobalExceptionHandler {
      * @param e 业务异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(BusinessException.class)
     public ResultVO<Void> handleBusinessException(BusinessException e) {
         logger.error("业务异常: {}", e.getMessage(), e);
         return ResultVO.error(e.getCode(), e.getMessage());
@@ -49,6 +57,7 @@ public class GlobalExceptionHandler {
      * @param e 参数异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(ParameterException.class)
     public ResultVO<Void> handleParameterException(ParameterException e) {
         logger.error("参数异常: {}", e.getMessage(), e);
         return ResultVO.error(e.getCode(), e.getMessage());
@@ -60,6 +69,7 @@ public class GlobalExceptionHandler {
      * @param e 系统异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(SystemException.class)
     public ResultVO<Void> handleSystemException(SystemException e) {
         logger.error("系统异常: {}", e.getMessage(), e);
         return ResultVO.error(e.getCode(), e.getMessage());
@@ -71,6 +81,7 @@ public class GlobalExceptionHandler {
      * @param e 运行时异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(RuntimeException.class)
     public ResultVO<Void> handleRuntimeException(RuntimeException e) {
         logger.error("运行时异常: {}", e.getMessage(), e);
         return ResultVO.error(500, "系统内部错误");
@@ -82,6 +93,7 @@ public class GlobalExceptionHandler {
      * @param e 通用异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(Exception.class)
     public ResultVO<Void> handleException(Exception e) {
         logger.error("系统异常: {}", e.getMessage(), e);
         return ResultVO.error(500, "系统异常，请联系管理员");
@@ -93,6 +105,7 @@ public class GlobalExceptionHandler {
      * @param e 空指针异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(NullPointerException.class)
     public ResultVO<Void> handleNullPointerException(NullPointerException e) {
         logger.error("空指针异常: {}", e.getMessage(), e);
         return ResultVO.error(500, "系统内部错误 - 空指针异常");
@@ -104,6 +117,7 @@ public class GlobalExceptionHandler {
      * @param e 非法参数异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(IllegalArgumentException.class)
     public ResultVO<Void> handleIllegalArgumentException(IllegalArgumentException e) {
         logger.error("非法参数异常: {}", e.getMessage(), e);
         return ResultVO.error(400, "参数错误: " + e.getMessage());
@@ -115,6 +129,7 @@ public class GlobalExceptionHandler {
      * @param e 类未找到异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(ClassNotFoundException.class)
     public ResultVO<Void> handleClassNotFoundException(ClassNotFoundException e) {
         logger.error("类未找到异常: {}", e.getMessage(), e);
         return ResultVO.error(500, "系统配置错误");
@@ -126,6 +141,7 @@ public class GlobalExceptionHandler {
      * @param e 算术异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(ArithmeticException.class)
     public ResultVO<Void> handleArithmeticException(ArithmeticException e) {
         logger.error("算术异常: {}", e.getMessage(), e);
         return ResultVO.error(400, "计算错误: " + e.getMessage());
@@ -137,6 +153,7 @@ public class GlobalExceptionHandler {
      * @param e 数组越界异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
     public ResultVO<Void> handleArrayIndexOutOfBoundsException(ArrayIndexOutOfBoundsException e) {
         logger.error("数组越界异常: {}", e.getMessage(), e);
         return ResultVO.error(400, "数据访问越界");
@@ -148,6 +165,7 @@ public class GlobalExceptionHandler {
      * @param e 类型转换异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(ClassCastException.class)
     public ResultVO<Void> handleClassCastException(ClassCastException e) {
         logger.error("类型转换异常: {}", e.getMessage(), e);
         return ResultVO.error(500, "数据类型转换错误");
@@ -159,6 +177,7 @@ public class GlobalExceptionHandler {
      * @param e 数字格式异常
      * @return ResultVO格式的错误响应
      */
+    @ExceptionHandler(NumberFormatException.class)
     public ResultVO<Void> handleNumberFormatException(NumberFormatException e) {
         logger.error("数字格式异常: {}", e.getMessage(), e);
         return ResultVO.error(400, "数字格式错误");
